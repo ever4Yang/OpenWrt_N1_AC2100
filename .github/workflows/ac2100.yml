@@ -99,8 +99,8 @@ jobs:
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --global user.name "github-actions[bot]"
+        # git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        # git config --global user.name "github-actions[bot]"
 
     - name: Get current date
       id: date
@@ -112,7 +112,7 @@ jobs:
 
     - name: Clone source code
       run: |
-        REPO_BRANCH="$((curl -gs -H 'Content-Type: application/json' \
+        # REPO_BRANCH="$((curl -gs -H 'Content-Type: application/json' \
            -H "Authorization: Bearer ${{ secrets.TOKEN_KIDDIN9 }}" \
            -X POST -d '{ "query": "query {repository(owner: \"openwrt\", name: \"openwrt\") {refs(refPrefix: \"refs/tags/\", last: 4, orderBy: {field: TAG_COMMIT_DATE, direction: ASC}) {edges {node {name}}}}}"}' https://api.github.com/graphql) | jq -r '.data.repository.refs.edges[].node.name' | grep v23 | tail -n 1)"
         REPO_BRANCH="openwrt-23.05"
